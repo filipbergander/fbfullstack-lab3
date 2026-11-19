@@ -1,6 +1,7 @@
 <template>
 <header class="w-full flex items-center p-4 bg-amber-300 text-black text-md md:text-xl">
   <h1 class="w-full"><RouterLink to="/">Laboration 3</RouterLink></h1>
+
 <div class="container">
   <nav class="flex flex-row justify-end">
     <ul class="flex flex-row gap-1.5 md:gap-4">
@@ -11,10 +12,12 @@
   </nav>
 </div>
 </header>
+<AppBanner />
 </template>
 
 <script setup>
 import { RouterLink } from 'vue-router';
+import AppBanner from './AppBanner.vue';
 </script>
 
 <style scoped>
