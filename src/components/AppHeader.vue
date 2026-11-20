@@ -1,6 +1,6 @@
 <template>
 <header class="w-full flex items-center p-4 bg-amber-300 text-black text-md md:text-xl">
-  <h1 class="w-full"><RouterLink to="/">Laboration 3</RouterLink></h1>
+  <p class="w-full"><RouterLink to="/">Laboration 3</RouterLink></p>
 
 <div class="container">
   <nav class="flex flex-row justify-end">
@@ -12,15 +12,16 @@
   </nav>
 </div>
 </header>
-<AppBanner />
 </template>
 
 <script setup>
 import { RouterLink } from 'vue-router';
-import AppBanner from './AppBanner.vue';
 </script>
 
 <style scoped>
+header {
+    font-family: "Comic sans MS", Helvetica, Arial, sans-serif;
+}
 
 .router-link-active {
   font-weight: bold;
