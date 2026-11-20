@@ -1,5 +1,5 @@
 <template>
-  <div class="w-11/12 max-w-2xl mx-auto bg-green-300 mt-12 my-4 shadow-md rounded-md text-sm md:text-base">
+  <div v-if="vacations.length > 0" class="w-11/12 max-w-2xl mx-auto bg-green-300 mt-12 my-4 shadow-md rounded-md text-sm md:text-base">
 <table class="w-full text-sm md:text-base border-collapse">
   <thead class=" text-black border-b border-green-800">
    <tr>
@@ -25,10 +25,11 @@
 </tbody>
 </table>
   </div>
-
+<p id="noPosts" v-else class="animate-bounce text-center text-sm text-red-700 md:text-base mt-12 my-4">Inga resmål sparade ännu. Lägg till ett nytt resmål!</p>
 </template>
 
 <script setup>
+import { ref } from 'vue';
 
 const emits = defineEmits(["deleteVacation"]);
 defineProps({
@@ -46,5 +47,9 @@ table {
 
 .pi {
   font-size: 1.25rem;
+}
+
+#noPosts {
+animation-duration: 3.5s;
 }
 </style>
