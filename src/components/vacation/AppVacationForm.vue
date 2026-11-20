@@ -1,6 +1,6 @@
 <template>
 <form method="post" class="w-11/12 max-w-2xl mx-auto content-center bg-white p-5 my-4 shadow-md rounded-md">
-  <legend class="text-lg md:text-xl">Lägg till ett nytt resmål</legend>
+  <legend class="text-lg md:text-xl mb-4">Lägg till ett nytt resmål</legend>
   <div class="flex flex-col mb-4 text-sm md:text-base">
      <label for="name">Ange namn</label>
 <input type="text" id="name" placeholder="Skriv namn" class="p-2 border border-gray-300 rounded-md"/>
