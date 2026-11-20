@@ -3,7 +3,7 @@
        <h1 class="text-2xl">Resmål</h1>
 </div>
 <AppVacationForm />
-<AppVacationTable :vacations="vacations" />
+<AppVacationTable :vacations="vacations" @delete-vacation="deleteVacation" />
 </template>
 
 <script setup>
@@ -35,6 +35,13 @@ vacations.value = data;
   }catch (error) {
     console.error(error);
   }
+}
+
+/**
+ * Tar bort ett resmål från API:et och visar listan igen med
+ */
+const deleteVacation = async (id) => {
+  console.log(id);
 }
 </script>
 

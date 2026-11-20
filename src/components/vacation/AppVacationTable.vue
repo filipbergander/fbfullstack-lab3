@@ -18,8 +18,8 @@
         <td class="p-3"><i class="pi text-base"
           :class="vacation.visited ? 'pi-check': 'pi-times'"
           :title="vacation.visited ? 'Besökt' : 'Ej besökt'"
-          ></i><span class="sr-only">{{ vacations.visited ? 'Besökt' : 'Ej besökt' }}</span></td>
-        <td class="p-3"><button class="bg-red-500 hover:bg-red-600 text-white w-9 h-9 rounded cursor-pointer" title="Radera" aria-label="Radera"><i class="pi pi-trash text-base"></i></button></td>
+          ></i><span class="sr-only">{{ vacation.visited ? 'Besökt' : 'Ej besökt' }}</span></td>
+        <td class="p-3"><button class="bg-red-500 hover:bg-red-600 text-white w-9 h-9 rounded cursor-pointer" title="Radera" aria-label="Radera" @click="$emit('deleteVacation', vacation.id)"><i class="pi pi-trash text-base"></i></button></td>
         <td class="p-3"><button class="bg-blue-500 hover:bg-blue-600 text-white w-9 h-9 rounded cursor-pointer" title="Redigera" aria-label="Redigera"><i class="pi pi-pencil text-base"></i></button></td>
   </tr>
 </tbody>
@@ -29,12 +29,13 @@
 </template>
 
 <script setup>
+
+const emits = defineEmits(["deleteVacation"]);
 defineProps({
   vacations: {
     type: Array
   }
 });
-
 
 </script>
 
