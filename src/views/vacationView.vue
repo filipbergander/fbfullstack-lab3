@@ -4,6 +4,9 @@
 </div>
 <AppVacationForm />
 <AppVacationTable :vacations="vacations" @delete-vacation="deleteVacation" />
+<div class="bg-blue-500 w-fit right-5 bottom-5 fixed text-white p-2 rounded-md">
+<p></p>
+</div>
 </template>
 
 <script setup>
@@ -41,7 +44,26 @@ vacations.value = data;
  * Tar bort ett resmål från API:et och visar listan igen med
  */
 const deleteVacation = async (id) => {
-  console.log(id);
+  const savedVacations = [...vacations.value]; // Sparar en kopia av alla resmål med spread-operator
+  vacations.value = savedVacations.filter(vacation => vacation.id !== id); // Filtrerar bort det resmålet som klickades för radering
+  try {
+    const response = await fetch(apiUrl + "/vacations/" + id, {
+      method: "DELETE"
+    });
+
+    if (!response.ok) {
+      throw new Error(response.status);
+    }
+    // Hämtar alla resmål igen från databasen efter raderingen
+    fetchVacations();
+    } catch (error) {
+    console.error(error);
+    vacations.value = savedVacations; // Vid error visas resmålen igen, så som det såg ut innan anropet gjordes
+  }
+}
+
+function displayMessage(message) {
+
 }
 </script>
 
