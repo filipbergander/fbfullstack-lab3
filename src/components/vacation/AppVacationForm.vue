@@ -3,7 +3,7 @@
   <legend class="text-lg md:text-xl mb-4">Lägg till ett nytt resmål</legend>
   <div class="flex flex-col mb-4 text-sm md:text-base">
      <label for="name">Ange namn</label>
-<input type="text" id="name" placeholder="Skriv namn" class="p-2 border border-gray-300 rounded-md"/>
+<input type="text" id="name" placeholder="Skriv namn" autocomplete="on" class="p-2 border border-gray-300 rounded-md"/>
   </div>
   <div class="flex flex-col mb-4 max-w-sm text-sm md:text-base">
      <label for="vacation-days">Ange antal resdagar</label>

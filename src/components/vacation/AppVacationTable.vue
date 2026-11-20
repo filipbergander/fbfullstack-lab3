@@ -31,10 +31,11 @@
 <script setup>
 defineProps({
   vacations: {
-    type: Array,
-    required: true
+    type: Array
   }
 });
+
+
 </script>
 
 <style scoped>

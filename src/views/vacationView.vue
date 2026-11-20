@@ -9,29 +9,33 @@
 <script setup>
 import AppVacationTable from '../components/vacation/AppVacationTable.vue';
 import AppVacationForm from '../components/vacation/AppVacationForm.vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
-const vacations = ref([
-  {
-id: 1,
-title: 'Italien',
-vacationDays: 7,
-visited: true
-  },
-    {
-id: 2,
-title: 'Spanien',
-vacationDays: 5,
-visited: false
-  },
-    {
-id: 3,
-title: 'Island',
-vacationDays: 10,
-visited: true
-  },
-]);
+const apiUrl = import.meta.env.VITE_API_URL; // Hämtar in url till apiet från dotenv-filen
 
+const vacations = ref([]);// Sparar resmålen i variabel, reaktiv ref
+
+// Hämta resmål vid inladdning av sidan
+onMounted(() => {
+  fetchVacations();
+})
+
+/**
+ * Hämtar in sparade resmål från API:et och sparar i variabeln vacations
+ */
+const fetchVacations = async () => {
+  try {
+    const response = await fetch(apiUrl + "/vacations");
+
+    if (!response.ok) {
+      throw new Error(response.status);
+    }
+    const data = await response.json();
+vacations.value = data;
+  }catch (error) {
+    console.error(error);
+  }
+}
 </script>
 
 <style scoped>
