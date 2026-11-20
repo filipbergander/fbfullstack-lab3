@@ -1,6 +1,6 @@
 <template>
-<div>
-       <h1>Resmål</h1>       
+<div class="text-center">
+       <h1 class="text-2xl">Resmål</h1>
 </div>
 </template>
 
@@ -9,5 +9,7 @@
 </script>
 
 <style scoped>
-
+h1 {
+  margin-top: 3rem;
+}
 </style>

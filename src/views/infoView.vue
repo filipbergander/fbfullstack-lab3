@@ -1,9 +1,16 @@
 <template>
-  <div>
-    <h1>Information</h1>
+  <div class="text-center">
+     <h1 class="text-2xl">Tankar om Vue</h1>
   </div>
+  <AppVueInfo />
 </template>
 
-<script setup></script>
+<script setup>
+import AppVueInfo from '../components/AppVueInfo.vue';
+</script>
 
-<style scoped></style>
+<style scoped>
+h1 {
+  margin-top: 3rem;
+}
+</style>

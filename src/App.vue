@@ -12,4 +12,8 @@ import AppFooter from './components/AppFooter.vue';
 <AppFooter />
 </template>
 
-<style scoped></style>
+<style scoped>
+main {
+  min-height: 100vh;
+}
+</style>
