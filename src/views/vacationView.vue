@@ -2,7 +2,7 @@
 <div class="text-center">
        <h1 class="text-2xl">Resmål</h1>
 </div>
-<AppVacationForm />
+<AppVacationForm @refresh-vacations="fetchVacations" />
 <AppVacationTable :vacations="vacations" @delete-vacation="deleteVacation" />
 <div v-if="message" class="w-fit right-5 bottom-5 fixed text-white p-2 rounded-md px-4 py-2 shadow-lg z-10"
 :class="isError ? 'bg-red-600' : 'bg-emerald-600'">
@@ -39,7 +39,7 @@ const fetchVacations = async () => {
     }
     const data = await response.json();
     if (data.length === 0) {
-      displayMessage("Inga resmål sparade ännu. Lägg till ett nytt resmål!", true);
+      displayMessage("Inga resmål sparade.", true);
     }
 vacations.value = data;
   }catch (error) {

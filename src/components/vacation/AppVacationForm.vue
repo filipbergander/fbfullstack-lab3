@@ -1,5 +1,5 @@
 <template>
-<form method="post" @ class="w-11/12 max-w-2xl mx-auto content-center bg-white p-5 my-4 shadow-md rounded-md">
+<form method="post" @submit.prevent="addVacation" class="w-11/12 max-w-2xl mx-auto content-center bg-white p-5 my-4 shadow-md rounded-md">
   <legend class="text-lg md:text-xl mb-4">Lägg till ett nytt resmål</legend>
   <div class="flex flex-col mb-4 text-sm md:text-base">
      <label for="name">Ange namn</label>
@@ -7,13 +7,14 @@
   </div>
   <div class="flex flex-col mb-4 max-w-sm text-sm md:text-base">
      <label for="vacation-days">Ange antal resdagar</label>
-<input type="text" id="vacation-days" placeholder="Skriv antal" v-model="vacationDays" class="p-2 border border-gray-300 rounded-md"/>
+<input type="number" id="vacation-days" placeholder="Ange nummer" v-model="vacationDays" class="p-2 border border-gray-300 rounded-md"/>
   </div>
     <div class="flex flex-col mb-4 text-sm md:text-base">
       <label for="visited">Har du besökt resmålet?</label>
 <input type="checkbox" id="visited" v-model="visited" class="p-4 border rounded-md"/>
      </div>
      <div class="flex flex-col mb-4 text-red-500">
+      <p>{{ errors }}</p>
       <ul id="errors-container" class="hidden">
 
       </ul>
@@ -24,10 +25,55 @@
 
 <script setup>
 import { ref } from 'vue';
+const apiUrl = import.meta.env.VITE_API_URL; // Hämtar in url till apiet från dotenv-filen
 const vacationTitle = ref("");
-const visited = ref(false);
 const vacationDays = ref("");
+const visited = ref(false);
 const errors = ref("");
+
+const emits = defineEmits(["refreshVacations"]);
+
+const addVacation = async () => {
+    //Validerar inputs
+  if (vacationTitle.value < 1 || vacationTitle.value == "") {
+    errors.value = "Ange ett namn på resmålet!";
+    return;
+  }
+if (vacationDays.value < 1 || vacationDays.value == "") {
+    errors.value = "Ange antal resdagar!";
+    return;
+  } else if (vacationDays.value > 365) {
+    errors.value = "Antal resdagar får inte överstiga 365!";
+    return;
+  }
+// Lyckat -> nollställer felmeddelanden
+  errors.value = "";
+
+  try {
+    const response = await fetch(apiUrl + "/vacations", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        title: vacationTitle.value,
+        vacationDays: parseInt(vacationDays.value),
+        visited: visited.value
+      })
+    });
+    if (!response.ok) {
+      throw new Error("Kunde inte lägga till resmålet, status: " + response.status);
+    }
+    emits("refreshVacations");
+    vacationTitle.value = "";
+    vacationDays.value = "";
+    visited.value = false;
+  } catch (error) {
+    console.error(error);
+    errors.value = "Misslyckades med att lägga till resmålet. Försök snart igen!";
+  }
+    };
+
 </script>
 
 <style scoped>
