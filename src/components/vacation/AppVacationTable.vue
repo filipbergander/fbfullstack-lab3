@@ -1,26 +1,25 @@
 <template>
-  <div v-if="vacations.length > 0" class="w-11/12 max-w-2xl mx-auto bg-green-300 mt-12 my-4 shadow-md rounded-md text-sm md:text-base">
+  <div v-if="vacations.length > 0" class="w-[99%] sm:w-11/12 max-w-2xl mx-auto bg-green-300 mt-12 my-4 shadow-md rounded-md text-sm md:text-base">
 <table class="w-full text-sm md:text-base border-collapse">
   <thead class=" text-black border-b border-green-800">
    <tr>
-  <th class="text-left p-3">Titel</th>
-    <th class="p-3">Antal resdagar</th>
-      <th class="p-3">Besökt</th>
-      <th class="p-3">Radera</th>
-      <th class="p-3">Redigera</th>
+  <th class="text-left px-1 py-2.5 sm:p-3">Namn</th>
+    <th class="px-1 py-2.5 sm:p-3">Resdagar</th>
+      <th class="px-1 py-2.5 sm:p-3">Besökt</th>
+      <th class="px-1 py-2.5 sm:p-3">Åtgärder</th>
 </tr>
   </thead>
 
 <tbody id="table-body" class="text-center divide-y divide-green-800">
   <tr v-for="vacation in vacations" :key="vacation.id" class="hover:bg-green-100">
-    <td class="p-3 text-left">{{ vacation.title }}</td>
-      <td class="p-3">{{ vacation.vacationDays }}</td>
-        <td class="p-3"><i class="pi text-base"
+    <td class="px-1 py-2.5 sm:p-3 text-left sm:font-base font-medium wrap-break-word max-w-30 max-[320px]:max-w-15 sm:max-w-none">{{ vacation.title }}</td>
+      <td class="px-1 py-2.5 sm:p-3 sm:font-base font-medium whitespace-nowrap">{{ vacation.vacationDays }}</td>
+        <td class="px-1 py-2.5 sm:p-3 sm:font-base font-medium whitespace-nowrap"><i class="pi text-base"
           :class="vacation.visited ? 'pi-check': 'pi-times'"
           :title="vacation.visited ? 'Besökt' : 'Ej besökt'"
           ></i><span class="sr-only">{{ vacation.visited ? 'Besökt' : 'Ej besökt' }}</span></td>
-        <td class="p-3"><button class="bg-red-500 hover:bg-red-600 text-white w-9 h-9 rounded cursor-pointer" title="Radera" aria-label="Radera" @click="$emit('deleteVacation', vacation.id)"><i class="pi pi-trash text-base"></i></button></td>
-        <td class="p-3"><button class="bg-blue-500 hover:bg-blue-600 text-white w-9 h-9 rounded cursor-pointer" title="Redigera" aria-label="Redigera"><i class="pi pi-pencil text-base"></i></button></td>
+        <td class="px-1 py-2.5 sm:p-3 whitespace-nowrap"><button class="bg-red-500 hover:bg-red-600 text-white w-8 h-8 sm:w-9 sm:h-9 rounded cursor-pointer mr-2 sm:mr-2" title="Radera" aria-label="Radera" @click="$emit('deleteVacation', vacation.id)"><i class="pi pi-trash text-base"></i></button><button class="bg-blue-500 hover:bg-blue-600 text-white w-8 h-8 sm:w-9 sm:h-9 rounded cursor-pointer" title="Redigera" aria-label="Redigera"><i class="pi pi-pencil text-base"></i></button></td>
+        <!--<td class="px-1 py-2.5 sm:p-3 whitespace-nowrap"></td>-->
   </tr>
 </tbody>
 </table>

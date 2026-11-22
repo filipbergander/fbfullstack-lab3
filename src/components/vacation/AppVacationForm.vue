@@ -1,26 +1,27 @@
 <template>
 <form method="post" @submit.prevent="addVacation" class="w-11/12 max-w-2xl mx-auto content-center bg-white p-5 my-4 shadow-md rounded-md">
-  <legend class="text-lg md:text-xl mb-4">Lägg till ett nytt resmål</legend>
+  <legend class="text-lg md:text-xl mb-2 ">Vart skulle du vilja resa?</legend>
+  <p class="text-lg md:text-lg mb-2 ">Lägg till ett nytt resmål</p>
   <div class="flex flex-col mb-4 text-sm md:text-base">
      <label for="name">Ange namn</label>
-<input type="text" id="name" placeholder="Skriv namn" autocomplete="off" v-model="vacationTitle" class="p-2 border border-gray-300 rounded-md"/>
+<input type="text" id="name" placeholder="Skriv namn" maxlength="40" autocomplete="off" v-model="vacationTitle" class="p-2 border border-gray-300 rounded-md"/>
   </div>
   <div class="flex flex-col mb-4 max-w-sm text-sm md:text-base">
      <label for="vacation-days">Ange antal resdagar</label>
-<input type="number" id="vacation-days" placeholder="Ange nummer" autocomplete="off" v-model="vacationDays" class="p-2 border border-gray-300 rounded-md"/>
+<input type="number" id="vacation-days" placeholder="Ange nummer" max="366" min="1" autocomplete="off" v-model="vacationDays" class="p-2 border border-gray-300 rounded-md"/>
   </div>
     <div class="flex flex-col mb-4 text-sm md:text-base">
       <label for="visited">Har du besökt resmålet?</label>
 <input type="checkbox" id="visited" v-model="visited" class="p-4 border rounded-md"/>
      </div>
-     <div class="flex flex-col mb-4 text-red-500">
+     <div class="flex flex-col mb-4 text-red-600">
       <ul>
       <li v-if="errors.length > 0" v-for="error in errors" :key="error">{{ error }}</li>
       </ul>
      </div>
-     <div class="flex gap-5 flex-col md:flex-row justify-center items-center">
+     <div class="flex gap-3 md:gap-5 flex-col md:flex-row justify-center items-center">
       <button type="submit" class="flex justify-center items-center place-self-center w-full max-w-lg mt-5 bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-md">Lägg till</button>
-<button type="reset" class="flex justify-center items-center place-self-center w-full max-w-lg mt-5 bg-gray-700 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-md" @click="resetForm()">Rensa</button>
+<button type="reset" class="flex justify-center items-center place-self-center w-full max-w-lg md:mt-5 bg-gray-700 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-md" @click="resetForm()">Rensa</button>
      </div>
 </form>
 </template>
@@ -45,11 +46,17 @@ errors.value = [];
     //Validerar inputs
   if (vacationTitle.value < 1 || vacationTitle.value == "") {
     errors.value.push("Ange ett namn på resmålet!");
+  } else if (vacationTitle.value.length > 40) {
+    errors.value.push("Max 40 tecken för namn!");
   }
-if (vacationDays.value < 1 || vacationDays.value == "") {
+  if (vacationDays.value < 1 || vacationDays.value == "") {
     errors.value.push("Ange antal resdagar!");
-  } else if (vacationDays.value > 365) {
-    errors.value.push("Antal resdagar får inte överstiga 365!");
+  } else if (vacationDays.value > 366) {
+    errors.value.push("Max 366 resdagar!");
+  }
+
+  if (typeof visited.value !== "boolean") {
+    errors.value.push("Ange om resmålet är besökt eller ej!");
   }
 
   // Om det finns felmeddelanden, avbryt funktionen
