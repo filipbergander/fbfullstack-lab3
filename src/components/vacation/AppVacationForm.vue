@@ -21,13 +21,13 @@
      </div>
      <div class="flex gap-3 md:gap-5 flex-col md:flex-row justify-center items-center">
       <button type="submit" class="flex justify-center items-center place-self-center w-full max-w-lg mt-5 bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-md">Lägg till</button>
-<button type="reset" class="flex justify-center items-center place-self-center w-full max-w-lg md:mt-5 bg-gray-700 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-md" @click="resetForm()">Rensa</button>
+<button type="button" class="flex justify-center items-center place-self-center w-full max-w-lg md:mt-5 bg-gray-700 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-md" @click="resetForm()">Rensa</button>
      </div>
 </form>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 const apiUrl = import.meta.env.VITE_API_URL; // Hämtar in url till apiet från dotenv-filen
 const vacationTitle = ref("");
 const vacationDays = ref("");
@@ -37,10 +37,23 @@ const errors = ref([]);
 // Skickar eventet till vacationView för att hämta in alla resmål
 const emits = defineEmits(["refreshVacations"]);
 
-defineProps({
-  editingVacations: {
-    type: Object
+const props = defineProps({
+  editingVacation: {
+    type: Object,
+    default: null
   }
+})
+
+watch(() => props.editingVacation, (newVacation) => {
+  if (newVacation !== null)
+ {
+   vacationTitle.value = newVacation.title;
+    vacationDays.value = newVacation.vacationDays;
+    visited.value = newVacation.visited;
+ } else {
+   resetForm();
+ }
+
 })
 
 // Validerar och lägger till ett nytt resmål i databasen
