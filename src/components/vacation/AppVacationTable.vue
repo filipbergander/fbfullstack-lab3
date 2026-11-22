@@ -12,9 +12,9 @@
 
 <tbody id="table-body" class="text-center divide-y divide-green-800">
   <tr v-for="vacation in vacations" :key="vacation.id" class="hover:bg-green-100">
-    <td class="px-1 py-2.5 sm:p-3 text-left sm:font-base font-medium wrap-break-word max-w-30 max-[320px]:max-w-15 sm:max-w-none">{{ vacation.title }}</td>
-      <td class="px-1 py-2.5 sm:p-3 sm:font-base font-medium whitespace-nowrap">{{ vacation.vacationDays }}</td>
-        <td class="px-1 py-2.5 sm:p-3 sm:font-base font-medium whitespace-nowrap"><i class="pi text-base"
+    <td class="px-1 py-2.5 sm:p-3 text-left sm:text-base font-medium wrap-break-word max-w-30 max-[320px]:max-w-15 sm:max-w-none">{{ vacation.title }}</td>
+      <td class="px-1 py-2.5 sm:p-3 sm:text-base font-medium whitespace-nowrap">{{ vacation.vacationDays }}</td>
+        <td class="px-1 py-2.5 sm:p-3 sm:text-base font-medium whitespace-nowrap"><i class="pi text-base"
           :class="vacation.visited ? 'pi-check': 'pi-times'"
           :title="vacation.visited ? 'Besökt' : 'Ej besökt'"
           ></i><span class="sr-only">{{ vacation.visited ? 'Besökt' : 'Ej besökt' }}</span></td>

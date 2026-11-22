@@ -31,6 +31,11 @@ onMounted(() => {
  * Hämtar in sparade resmål från API:et och sparar i variabeln vacations
  */
 const fetchVacations = async () => {
+// Om servern inte svarar inom 3 sek -> visa meddelande
+  const wakeServerTimer = setTimeout(() => {
+    displayMessage("Servern vaknar...", true);
+  }, 3000);
+
   try {
     const response = await fetch(apiUrl + "/vacations");
 
@@ -38,13 +43,15 @@ const fetchVacations = async () => {
       throw new Error(response.status);
     }
     const data = await response.json();
-    if (data.length === 0) {
+   /* if (data.length === 0) {
       displayMessage("Inga resmål sparade.", true);
-    }
+    }*/
 vacations.value = data;
   }catch (error) {
     console.error(error);
     displayMessage("Misslyckades med att hämta resmål. Försök snart igen!", true);
+  } finally {
+    clearTimeout(wakeServerTimer); // Rensar timeouten om servern svarar
   }
 }
 
