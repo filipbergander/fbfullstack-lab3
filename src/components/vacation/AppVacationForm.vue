@@ -37,6 +37,12 @@ const errors = ref([]);
 // Skickar eventet till vacationView för att hämta in alla resmål
 const emits = defineEmits(["refreshVacations"]);
 
+defineProps({
+  editingVacations: {
+    type: Object
+  }
+})
+
 // Validerar och lägger till ett nytt resmål i databasen
 const addVacation = async () => {
 

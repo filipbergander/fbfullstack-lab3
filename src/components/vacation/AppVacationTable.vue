@@ -18,7 +18,7 @@
           :class="vacation.visited ? 'pi-check': 'pi-times'"
           :title="vacation.visited ? 'Besökt' : 'Ej besökt'"
           ></i><span class="sr-only">{{ vacation.visited ? 'Besökt' : 'Ej besökt' }}</span></td>
-        <td class="px-1 py-2.5 sm:p-3 whitespace-nowrap"><button class="bg-red-500 hover:bg-red-600 text-white w-8 h-8 sm:w-9 sm:h-9 rounded cursor-pointer mr-2 sm:mr-2" title="Radera" aria-label="Radera" @click="$emit('deleteVacation', vacation.id)"><i class="pi pi-trash text-base"></i></button><button class="bg-blue-500 hover:bg-blue-600 text-white w-8 h-8 sm:w-9 sm:h-9 rounded cursor-pointer" title="Redigera" aria-label="Redigera"><i class="pi pi-pencil text-base"></i></button></td>
+        <td class="px-1 py-2.5 sm:p-3 whitespace-nowrap"><button class="bg-red-500 hover:bg-red-600 text-white w-8 h-8 sm:w-9 sm:h-9 rounded cursor-pointer mr-2 sm:mr-2" title="Radera" aria-label="Radera" @click="$emit('deleteVacation', vacation.id)"><i class="pi pi-trash text-base"></i></button><button class="bg-blue-500 hover:bg-blue-600 text-white w-8 h-8 sm:w-9 sm:h-9 rounded cursor-pointer" title="Redigera" aria-label="Redigera" @click="$emit('selectedVacation', vacation)"><i class="pi pi-pencil text-base"></i></button></td>
         <!--<td class="px-1 py-2.5 sm:p-3 whitespace-nowrap"></td>-->
   </tr>
 </tbody>
@@ -28,15 +28,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-
-const emits = defineEmits(["deleteVacation"]);
+const emits = defineEmits(["deleteVacation", "selectedVacation"]);
 defineProps({
   vacations: {
     type: Array
   }
 });
-
 </script>
 
 <style scoped>

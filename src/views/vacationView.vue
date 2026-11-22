@@ -2,8 +2,8 @@
 <div class="text-center">
        <h1 class="text-2xl">Resmål</h1>
 </div>
-<AppVacationForm @refresh-vacations="fetchVacations" />
-<AppVacationTable :vacations="vacations" @delete-vacation="deleteVacation" />
+<AppVacationForm @refresh-vacations="fetchVacations" :editing-vacation="editingVacation"/>
+<AppVacationTable :vacations="vacations" @delete-vacation="deleteVacation" @selected-vacation="selectedVacation"/>
 <div v-if="message" class="w-fit right-5 bottom-5 fixed text-white p-2 rounded-md px-4 py-2 shadow-lg z-10"
 :class="isError ? 'bg-red-600' : 'bg-emerald-600'">
 <p>{{ message }}</p>
@@ -21,6 +21,8 @@ const vacations = ref([]);// Sparar resmålen i variabel, reaktiv ref
 const message = ref(""); // Meddelandevariabel, tom i början
 const isError = ref(false); // Finns felmeddelanden, false i början
 let delayTime = null; // Rensar timeouten för meddelanden
+
+const editingVacation = ref({});
 
 // Hämta resmål vid inladdning av sidan
 onMounted(() => {
@@ -76,6 +78,13 @@ const deleteVacation = async (id) => {
     displayMessage("Misslyckades med att radera resmålet. Försök snart igen!", true)
   }
 }
+
+const selectedVacation = async (vacation) => {
+editingVacation.value = vacation;
+console.log(editingVacation.value);
+window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
 /**
  * Visar ett lyckat/misslyckat meddelande när använder provar att radera ett resmål
  * @param text Textmeddelandets sträng
