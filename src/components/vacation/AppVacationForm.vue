@@ -88,7 +88,7 @@ try {
     }
     // Lyckat -> Hämtar in alla resmål igen och tömmer inputs & felmeddelanden
     resetForm();
-        emits("refreshVacations");
+        emits("refreshVacations", "Nytt resmål tillagt!");
   } catch (error) {
     console.error(error);
     errors.value.push("Misslyckades med att lägga till resmålet. Försök snart igen!");
@@ -115,7 +115,7 @@ const updateVacation = async (id) => {
     }
     // Lyckat -> Hämtar in alla resmål igen och tömmer inputs & felmeddelanden
     resetForm();
-    emits("refreshVacations");
+    emits("refreshVacations", "Resmålet uppdaterades!");
   } catch (error) {
     console.error(error);
     errors.value.push("Misslyckades med att uppdatera resmålet. Försök snart igen!");

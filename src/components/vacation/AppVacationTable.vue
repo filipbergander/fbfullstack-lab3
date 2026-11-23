@@ -28,7 +28,10 @@
 </template>
 
 <script setup>
+// Skickar emitten till parentkomponentet vacationview när man vill radera eller redigera ett resmål
 const emits = defineEmits(["deleteVacation", "selectedVacation"]);
+
+// Hämtar in resmål som skickas med från parentkomponenten
 defineProps({
   vacations: {
     type: Array

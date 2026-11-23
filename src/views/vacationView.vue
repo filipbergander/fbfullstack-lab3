@@ -2,15 +2,16 @@
 <div class="text-center">
        <h1 class="text-2xl">Resmål</h1>
 </div>
-<AppVacationForm @refresh-vacations="fetchVacations" @cancel-edit-mode="editingVacation = null" :editing-vacation="editingVacation"/>
+<AppVacationForm @refresh-vacations="refreshVacations" @cancel-edit-mode="editingVacation = null" :editing-vacation="editingVacation"/>
 <AppVacationTable :vacations="vacations" @delete-vacation="deleteVacation" @selected-vacation="selectedVacation"/>
 <div v-if="message" class="w-fit right-5 bottom-5 fixed text-white p-2 rounded-md px-4 py-2 shadow-lg z-10"
-:class="isError ? 'bg-red-600' : 'bg-emerald-600'">
+:class="isError ? 'bg-red-600' : 'bg-blue-600'">
 <p>{{ message }}</p>
 </div>
 </template>
 
 <script setup>
+// Hämtar komponenter och funktioner
 import AppVacationTable from '../components/vacation/AppVacationTable.vue';
 import AppVacationForm from '../components/vacation/AppVacationForm.vue';
 import { onMounted, ref } from 'vue';
@@ -83,6 +84,14 @@ const deleteVacation = async (id) => {
 const selectedVacation = async (vacation) => {
 editingVacation.value = vacation;
 window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// Hämtar resmål och visar ett meddelande om det har skickats med från childkomponenter
+const refreshVacations = (msg) => {
+  fetchVacations(); // Hämtar in alla resmål igen
+  if (msg) {
+    displayMessage(msg); // Visar meddelande i gränssnittet
+  }
 }
 
 /**
