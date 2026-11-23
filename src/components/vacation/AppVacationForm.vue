@@ -1,5 +1,5 @@
 <template>
-<form method="post" @submit.prevent="addVacation" class="w-11/12 max-w-2xl mx-auto content-center bg-white p-5 my-4 shadow-md rounded-md">
+<form method="post" @submit.prevent="saveVacation" class="w-11/12 max-w-2xl mx-auto content-center bg-white p-5 my-4 shadow-md rounded-md">
   <legend class="text-lg md:text-xl mb-2 ">Vart skulle du vilja resa?</legend>
   <p class="text-lg md:text-lg mb-2 ">{{editingVacation ? 'Redigera resmål' : 'Lägg till ett nytt resmål'}} </p>
   <div class="flex flex-col mb-4 text-sm md:text-base">
@@ -58,67 +58,27 @@ watch(() => props.editingVacation, (newVacation) => {
 
 })
 
-// Validerar och lägger till ett nytt resmål i databasen
-const addVacation = async () => {
+// Validerar och lägger till eller uppdaterar ett resmål beroende på om man valt att redigera eller lägga till ett nytt resmål
+const saveVacation = async () => {
 
-  // tömmer felmeddelanden innan validering
-errors.value = [];
-
-    //Validerar inputs
-  if (!vacationTitle.value.trim()) {
-    errors.value.push("Ange ett namn på resmålet!");
-  } else if (vacationTitle.value.length > 40) {
-    errors.value.push("Max 40 tecken för namn!");
-  }
-  if (vacationDays.value < 1 || vacationDays.value == "") {
-    errors.value.push("Ange antal resdagar!");
-  } else if (vacationDays.value > 366) {
-    errors.value.push("Max 366 resdagar!");
-  }
-
-  if (typeof visited.value !== "boolean") {
-    errors.value.push("Ange om resmålet är besökt eller ej!");
-  }
-
-  // Om det finns felmeddelanden, avbryt funktionen
-  if (errors.value.length > 0) {
-    return;
-  }
+if (!validateInputs()) return; // Validerar
 
   if (props.editingVacation) {
-    // Uppdaterar ett befintligt resmål
-    try {
-      const response = await fetch(apiUrl + "/vacations/" + props.editingVacation.id, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          title: vacationTitle.value,
-          vacationDays: parseInt(vacationDays.value),
-          visited: visited.value
-        })
-      });
-      if (!response.ok) {
-        throw new Error("Kunde inte uppdatera resmålet, status: " + response.status);
-      }
-      // Lyckat -> Hämtar in alla resmål igen och tömmer inputs & felmeddelanden
-      resetForm();
-      emits("refreshVacations");
-    } catch (error) {
-      console.error(error);
-      errors.value.push("Misslyckades med att uppdatera resmålet. Försök snart igen!");
+  await updateVacation(props.editingVacation.id);
+    } else {
+  await addVacation();
     }
-    return;
-  } else {
-     try {
+  }
+// Lägger till ett nytt resmål
+const addVacation = async () => {
+try {
     const response = await fetch(apiUrl + "/vacations", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        title: vacationTitle.value,
+        title: vacationTitle.value.trim(),
         vacationDays: parseInt(vacationDays.value),
         visited: visited.value
       })
@@ -133,8 +93,36 @@ errors.value = [];
     console.error(error);
     errors.value.push("Misslyckades med att lägga till resmålet. Försök snart igen!");
   }
+
+}
+
+    // Uppdaterar ett befintligt resmål
+const updateVacation = async (id) => {
+  try {
+    const response = await fetch(apiUrl + "/vacations/" + id, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        title: vacationTitle.value.trim(),
+        vacationDays: parseInt(vacationDays.value),
+        visited: visited.value
+      })
+    });
+    if (!response.ok) {
+      throw new Error("Kunde inte uppdatera resmålet, status: " + response.status);
+    }
+    // Lyckat -> Hämtar in alla resmål igen och tömmer inputs & felmeddelanden
+    resetForm();
+    emits("refreshVacations");
+  } catch (error) {
+    console.error(error);
+    errors.value.push("Misslyckades med att uppdatera resmålet. Försök snart igen!");
   }
-    };
+};
+
+
 // Tömmer inputs och felmeddelanden
 function resetForm() {
   vacationTitle.value = "";
@@ -143,6 +131,29 @@ function resetForm() {
   errors.value = [];
 
 emits("cancelEditMode"); // Sätter editingVacation till null, submit-knapp och text byter även tillbaka till ordinarie namn i formuläret
+}
+// Validerar inputs i formuläret
+const validateInputs = () => {
+ // tömmer felmeddelanden innan validering
+errors.value = [];
+
+    //Validerar inputs
+  if (!vacationTitle.value.trim()) {
+    errors.value.push("Ange ett namn på resmålet!");
+  } else if (vacationTitle.value.length > 40) {
+    errors.value.push("Max 40 tecken för namn!");
+  }
+  if (vacationDays.value < 1 || !vacationDays.value) {
+    errors.value.push("Ange antal resdagar!");
+  } else if (vacationDays.value > 366) {
+    errors.value.push("Max 366 resdagar!");
+  }
+
+  if (typeof visited.value !== "boolean") {
+    errors.value.push("Ange om resmålet är besökt eller ej!");
+  }
+
+  return errors.value.length === 0; // Returnerar true om inga felmeddelanden finns, annars false
 }
 
 </script>
