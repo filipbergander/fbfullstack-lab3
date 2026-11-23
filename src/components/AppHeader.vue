@@ -1,6 +1,6 @@
 <template>
 <header class="w-full flex items-center p-4 bg-amber-300 text-black text-md md:text-xl">
-  <p class="w-full"><RouterLink to="/">Laboration 3</RouterLink></p>
+  <p class="w-full">Laboration 3</p>
 
 <div class="container">
   <nav class="flex flex-row justify-end">

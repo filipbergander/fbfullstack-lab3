@@ -2,7 +2,7 @@
 
 ## Webbplats för resmål
 
-Webbplatsen är byggd med Vue, Tailwind CSS och Vite. Den konsumerar en REST-webbtjänst (laboration 2) som hanterar resmål. Full CRUD-funktionalitet är implementerad i användargränssnittet genom webbtjänsten.
+Webbplatsen är byggd med Vue, Tailwind CSS och Vite. Den konsumerar en REST-webbtjänst (laboration 2) som hanterar resmål. Full CRUD-funktionalitet är implementerad i användargränssnittet genom webbtjänsten. Validering av inputs görs i formuläret och felmeddelanden samt lyckade meddelanden visas i gränssnittet.
 
 ![Användargränssnitt över webbplatsens resmål](image.png)
 
