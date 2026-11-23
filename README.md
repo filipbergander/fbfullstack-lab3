@@ -1,44 +1,49 @@
-# fbfullstack-lab3
+# Laboration 3 | Fullstack-utveckling med ramverk DT193G
 
-This template should help get you started developing with Vue 3 in Vite.
+## Webbplats för resmål
 
-## Recommended IDE Setup
+Webbplatsen är byggd med Vue, Tailwind CSS och Vite. Den konsumerar en REST-webbtjänst (laboration 2) som hanterar resmål. Full CRUD-funktionalitet är implementerad i användargränssnittet genom webbtjänsten.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+![Användargränssnitt över webbplatsens resmål](image.png)
 
-## Recommended Browser Setup
+Webbplatsen har tre sidor:
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- **Hem:** Reflektioner kring mitt resintresse.
+- **Resmål:** Hämtar in resmål och visar dem i en tabell. Möjlighet att lägga till, redigera och radera resmål finns i gränssnittet.
+- **Info:** Information och tankar kring mitt arbete med Vue.
 
-## Customize configuration
+**Komponenter** skapades för att hantera resmålen och webbplatsen, t.ex tabell och formulär samt mindre komponenter som footern och delar av sidor.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+**Views** skapades för vardera sida i webbplatsen. Samt en 404-sida.
 
-## Project Setup
+**Props** används för att skicka data till childkomponenter, som tabellen eller formuläret, från parentkomponenten vacationView.vue.
 
-```sh
+**Emits** används för att skicka händelser som när man raderar ett resmål från childkomponenten till vacationView.vue.
+
+Laborationen använder en dotenv-fil för att lagra webbtjänstens URL.
+
+## Publicerad länk
+
+https://fbfullstack-lab3.vercel.app/
+
+## Kör projektet lokalt
+
+Klona ner projektet,
+
+```
+git clone https://github.com/filipbergander/fbfullstack-lab3.git
+```
+
+Installera beroenden:
+
+```
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+Skapa en `.env`-fil i projektets root-mapp och lägg till din webbtjänst URL i filen.
+
+Starta projektet:
 
 ```sh
 npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```
