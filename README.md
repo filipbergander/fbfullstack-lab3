@@ -2,13 +2,15 @@
 
 ## Webbplats för resmål
 
-Webbplatsen är byggd med Vue, Tailwind CSS och Vite. Den konsumerar en REST-webbtjänst (laboration 2) som hanterar resmål. Full CRUD-funktionalitet är implementerad i användargränssnittet genom webbtjänsten. Validering av inputs görs i formuläret och felmeddelanden samt lyckade meddelanden visas i gränssnittet.
+Webbplatsen är byggd med Vue, Tailwind CSS och Vite. Den konsumerar en REST-webbtjänst (laboration 2) som hanterar resmål. Full CRUD-funktionalitet är implementerad i användargränssnittet genom webbtjänsten. Validering av inputs görs i formuläret, och felmeddelanden samt lyckade meddelanden visas i gränssnittet när användaren interagerar, exempelvis en notifikation när man lägger till ett resmål.
+
+Eftersom webbtjänsten använder Render som host så kan det ta upp till en minut innan resmålen är synliga i gränssnittet, och det är under tiden inte möjligt att lägga till ett nytt resmål.
 
 ![Användargränssnitt över webbplatsens resmål](image.png)
 
 Webbplatsen har tre sidor:
 
-- **Hem:** Reflektioner kring mitt resintresse.
+- **Hem:** Reflektioner kring mitt resintresse tillsammans med en stor hero-bild och mindre bild.
 - **Resmål:** Hämtar in resmål och visar dem i en tabell. Möjlighet att lägga till, redigera och radera resmål finns i gränssnittet.
 - **Info:** Information och tankar kring mitt arbete med Vue.
 

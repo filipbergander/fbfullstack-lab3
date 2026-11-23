@@ -32,7 +32,7 @@ h1 {
   color:rgb(124, 8, 192);
 }
 li:hover {
-  color: rgba(0, 0, 0, 0.562);
+  color: rgba(0, 0, 0, 0.651);
   transition: color 0.1s ease-in-out;
 }
 </style>
