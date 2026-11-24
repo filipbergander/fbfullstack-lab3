@@ -46,6 +46,8 @@ const fetchVacations = async () => {
       throw new Error(response.status);
     }
     const data = await response.json();
+    vacations.value = data.sort((a,b ) => a.id - b.id); // Sorterar resmålen efter id
+
    /* if (data.length === 0) {
       displayMessage("Inga resmål sparade.", true);
     }*/
